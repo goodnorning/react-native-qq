@@ -268,7 +268,11 @@ RCT_EXPORT_METHOD(logout)
     body[@"access_token"] = _qqapi.accessToken;
     body[@"expires_in"] = @([_qqapi.expirationDate timeIntervalSince1970]*1000);
     body[@"oauth_consumer_key"] =_qqapi.appId;
-
+    //add by Scott.Lin
+    NSArray *arr = [_qqapi.passData allKeys];
+    for (NSString *key in arr) {
+        body[key] = [_qqapi.passData objectForKey:key];
+    }
     [self.bridge.eventDispatcher sendAppEventWithName:@"QQ_Resp" body:body];
 }
 
